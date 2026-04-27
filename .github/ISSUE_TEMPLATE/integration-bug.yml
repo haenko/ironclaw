@@ -1,0 +1,44 @@
+name: Integration bug
+description: Report a bug in a shipped tool or skill.
+title: "[bug] "
+labels: ["type:bug"]
+body:
+  - type: input
+    id: integration
+    attributes:
+      label: Affected integration
+      description: Tool or skill name. Use the same name as in `tools/` or `skills/`.
+      placeholder: microsoft-365
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Numbered list. Include the exact action params or prompt the agent received.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or error messages
+      description: Optional. Paste any relevant tool output or HTTP error response.
+      render: text
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      description: IronClaw version, OS, account type (personal MSA, organizational tenant, etc.)
+      placeholder: IronClaw 0.24.0, Linux, organizational tenant

@@ -1,0 +1,64 @@
+{
+  "version": "0.1.0",
+  "wit_version": "0.3.0",
+  "description": "Microsoft 365 integration via Microsoft Graph. Outlook mail, Teams channel messaging, Excel cell and range operations, Word and PowerPoint document generation, SharePoint and OneDrive file management, Outlook Calendar scheduling. OAuth 2.0 user-context authentication against Microsoft Entra ID with host-managed token refresh.",
+  "http": {
+    "allowlist": [
+      {
+        "host": "graph.microsoft.com",
+        "path_prefix": "/v1.0/",
+        "methods": ["GET", "POST", "PATCH", "PUT", "DELETE"]
+      },
+      {
+        "host": "login.microsoftonline.com",
+        "path_prefix": "/",
+        "methods": ["GET", "POST"]
+      }
+    ],
+    "credentials": {
+      "microsoft_oauth_token": {
+        "secret_name": "microsoft_oauth_token",
+        "location": { "type": "bearer" },
+        "host_patterns": ["graph.microsoft.com"]
+      }
+    },
+    "rate_limit": {
+      "requests_per_minute": 60,
+      "requests_per_hour": 3600
+    },
+    "timeout_secs": 60
+  },
+  "secrets": {
+    "allowed_names": ["microsoft_oauth_token"]
+  },
+  "auth": {
+    "secret_name": "microsoft_oauth_token",
+    "display_name": "Microsoft 365",
+    "oauth": {
+      "authorization_url": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+      "token_url": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+      "client_id_env": "MICROSOFT_OAUTH_CLIENT_ID",
+      "client_secret_env": "MICROSOFT_OAUTH_CLIENT_SECRET",
+      "scopes": [
+        "Mail.ReadWrite",
+        "Mail.Send",
+        "ChannelMessage.Send",
+        "Team.ReadBasic.All",
+        "Channel.ReadBasic.All",
+        "Files.ReadWrite.All",
+        "Sites.ReadWrite.All",
+        "Calendars.ReadWrite",
+        "User.Read",
+        "offline_access"
+      ],
+      "use_pkce": true,
+      "pending_instructions": "Register an application at https://entra.microsoft.com -> Applications -> App registrations -> New registration. Supported account types: Accounts in any organizational directory and personal Microsoft accounts. Redirect URI: Web, http://localhost:9876/callback. After creation, copy the Application (client) ID. Under Certificates & secrets, create a new client secret and copy its value. Under API permissions, add delegated Microsoft Graph permissions matching the scope list above and grant admin consent if the tenant requires it. Personal Microsoft accounts also need the manifest field api.requestedAccessTokenVersion set to 2. Export MICROSOFT_OAUTH_CLIENT_ID and MICROSOFT_OAUTH_CLIENT_SECRET on the IronClaw host before running ironclaw tool auth microsoft."
+    },
+    "env_var": "MICROSOFT_OAUTH_TOKEN",
+    "setup_url": "https://entra.microsoft.com",
+    "instructions": "1. Go to https://entra.microsoft.com and sign in with an account that can create app registrations.\n2. Applications -> App registrations -> New registration.\n3. Name the application (e.g. IronClaw Microsoft Tool). Supported account types: pick based on tenant policy; multitenant + personal accounts is the broadest option. Redirect URI: Web, http://localhost:9876/callback (Microsoft requires the literal string localhost; 127.0.0.1 is rejected).\n4. After creation, copy the Application (client) ID into MICROSOFT_OAUTH_CLIENT_ID.\n5. Under Certificates & secrets, create a new client secret. Copy the Value immediately (shown once) into MICROSOFT_OAUTH_CLIENT_SECRET.\n6. Under API permissions, add Microsoft Graph delegated permissions: Mail.ReadWrite, Mail.Send, ChannelMessage.Send, Team.ReadBasic.All, Channel.ReadBasic.All, Files.ReadWrite.All, Sites.ReadWrite.All, Calendars.ReadWrite, User.Read, offline_access.\n7. If the tenant requires admin consent, click Grant admin consent for <tenant>.\n8. If supporting personal Microsoft accounts, open the Manifest tab and set api.requestedAccessTokenVersion to 2.\n9. Export both env vars on the IronClaw host (or write them to ~/.ironclaw/.env) and run `ironclaw tool auth microsoft` to launch the consent flow.\n10. Refresh tokens are managed by the host; you re-authenticate only when scopes change or consent is revoked."
+  },
+  "setup": {
+    "required_secrets": []
+  }
+}

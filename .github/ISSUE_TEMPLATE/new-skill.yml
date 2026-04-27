@@ -1,0 +1,65 @@
+name: New skill
+description: Propose a new SKILL.md skill (a branch that grows from an existing tool trunk).
+title: "[skill] "
+labels: ["type:skill", "status:proposed"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Skill name
+      description: kebab-case, no `skill` suffix. Example, `excel-bookkeeping`, `outlook-email-composer`.
+      placeholder: excel-bookkeeping
+    validations:
+      required: true
+  - type: input
+    id: author
+    attributes:
+      label: Author
+      description: Legal name of the person claiming this work.
+    validations:
+      required: true
+  - type: input
+    id: trunk
+    attributes:
+      label: Trunk tool
+      description: The tool this skill depends on. Must be a tool already in `tools/` or proposed in another open issue.
+      placeholder: microsoft-365
+    validations:
+      required: true
+  - type: input
+    id: summary
+    attributes:
+      label: One-sentence description
+      placeholder: Excel-driven bookkeeping patterns for ledger entry, balance reconciliation, and trial balance reports.
+    validations:
+      required: true
+  - type: textarea
+    id: activation
+    attributes:
+      label: Activation strategy
+      description: List keywords, regex patterns, and tags the agent should use to recognize when this skill applies.
+      placeholder: |
+        keywords: bookkeeping, ledger entry, trial balance, debit credit
+        patterns: (?i)(reconcile|balance)\s+(account|ledger)
+        tags: finance, accounting, excel
+    validations:
+      required: true
+  - type: textarea
+    id: out_of_scope
+    attributes:
+      label: Out of scope
+      description: Explicitly list cases where the skill should not activate.
+  - type: textarea
+    id: limits
+    attributes:
+      label: Known limits or constraints
+      description: Tool dependencies, prompt budget concerns, partner-specific requirements.
+  - type: checkboxes
+    id: acks
+    attributes:
+      label: Acknowledgments
+      options:
+        - label: The trunk tool is live or has an open issue.
+          required: true
+        - label: I will follow the conventions in CONTRIBUTING.md.
+          required: true

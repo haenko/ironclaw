@@ -1,0 +1,11 @@
+/tools/*/target/
+*.wasm
+*.swp
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.env
+.env.local
+.env.*.local
+*.log
