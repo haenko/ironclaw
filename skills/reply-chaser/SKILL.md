@@ -1,39 +1,38 @@
 ---
-
 name: reply-chaser
 version: 1.0.0
-description: "Tracks things the user is waiting on from other people and reminds them to chase it up if no reply has come in time. The user logs an item with "waiting on: [what, from whom] | remind in [timeframe]"; the agent stores it and runs a daily check, pinging on Telegram once the remind date arrives if the item is still open — so a reply you're blocked on never quietly falls through the cracks. Mark it done when the reply lands, or snooze it if you want to wait longer."
+description: 'Tracks things the user is waiting on from other people and reminds them to chase it up if no reply has come in time. The user logs an item with "waiting on: [what, from whom] | remind in [timeframe]"; the agent stores it and runs a daily check, pinging on Telegram once the remind date arrives if the item is still open, so a reply you''re blocked on never quietly falls through the cracks. Mark it done when the reply lands, or snooze it if you want to wait longer.'
 activation:
-keywords:
-- "waiting on:"
-- "reply chaser"
-- "follow up"
-- "chase up"
-- "what am i waiting on"
-- "got reply"
-- "snooze"
-patterns:
-- "(?i)waiting on:\s*.+\|\s*remind in\s*.+"
-- "(?i)(got|received)\s+reply:\s*.+"
-- "(?i)snooze\s+.+:\s*.+"
-- "(?i)what\s+am\s+i\s+waiting\s+on"
-- "(?i)(show|list)\s+(my\s+)?waiting\s+items"
-tags:
-- "personal-assistant"
-- "productivity"
-- "reminders"
-- "follow-up"
-- "automation"
-max_context_tokens: 1800
+  keywords:
+    - "waiting on:"
+    - "reply chaser"
+    - "follow up"
+    - "chase up"
+    - "what am i waiting on"
+    - "got reply"
+    - "snooze"
+  patterns:
+    - '(?i)waiting on:\s*.+\|\s*remind in\s*.+'
+    - '(?i)(got|received)\s+reply:\s*.+'
+    - '(?i)snooze\s+.+:\s*.+'
+    - '(?i)what\s+am\s+i\s+waiting\s+on'
+    - '(?i)(show|list)\s+(my\s+)?waiting\s+items'
+  tags:
+    - "personal-assistant"
+    - "productivity"
+    - "reminders"
+    - "follow-up"
+    - "automation"
+  max_context_tokens: 1800
 requires:
-tools:
-- memory
-- time
-- routine
-- message
-bins: []
-env: []
--------
+  tools:
+    - memory
+    - time
+    - routine
+    - message
+  bins: []
+  env: []
+---
 
 You track what the user is waiting on from other people and remind them to chase it if the reply does not come in time.
 
